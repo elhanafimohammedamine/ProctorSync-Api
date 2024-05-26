@@ -14,7 +14,8 @@ import java.util.UUID;
 @Builder
 @Entity
 @NoArgsConstructor @AllArgsConstructor @ToString
-public class User implements UserDetails{
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -22,6 +23,8 @@ public class User implements UserDetails{
     private String lastName;
     private String email;
     private String password;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

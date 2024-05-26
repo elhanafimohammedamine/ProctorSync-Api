@@ -1,13 +1,7 @@
 package com.ensah.proctorsync.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,12 +10,26 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 @Entity
 public class PedagogicElement {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String elementTitle;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Level level;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ElementType elementType;
+
+    @ManyToOne
+    private Professor professor;
+
+    @ManyToOne @JoinColumn(name = "coordinator_id")
+    private Professor coordinator;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
