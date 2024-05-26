@@ -1,13 +1,11 @@
 package com.ensah.proctorsync.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collection;
 import java.util.UUID;
 
 @Data
@@ -25,4 +23,15 @@ public class Exam {
     private String pvFilePath;
     private String report;
 
+    @OneToMany(mappedBy = "exam")
+    private Collection<Monitoring> monitoring;
+
+    @ManyToOne
+    private Session session;
+
+    @ManyToOne
+    private ExamType examType;
+
+    @ManyToOne
+    private Semester semester;
 }
