@@ -15,14 +15,18 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+@Table(name = "`user`")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String password;
+    private String phone;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
     private LocalDateTime createdAt;

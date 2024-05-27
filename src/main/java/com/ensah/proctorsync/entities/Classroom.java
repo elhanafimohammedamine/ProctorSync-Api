@@ -11,14 +11,14 @@ import java.util.UUID;
 @Entity
 @Builder
 @NoArgsConstructor @AllArgsConstructor @ToString
-public class Room {
+public class Classroom {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
     private int capacity;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "classroom")
     private Collection<Monitoring> monitoring;
 
 }

@@ -1,4 +1,4 @@
-package com.ensah.proctorsync.Exception;
+package com.ensah.proctorsync.exception;
 
 
 import org.slf4j.Logger;

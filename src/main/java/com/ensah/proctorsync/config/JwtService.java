@@ -1,5 +1,6 @@
 package com.ensah.proctorsync.config;
 
+import com.ensah.proctorsync.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -34,11 +35,18 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(User user) {
+        var claims = new HashMap<String, Object>(
+                Map.of(
+                        "firstName", user.getFirstName(),
+                        "lastName", user.getLastName(),
+                        "phone", user.getPhone()
+                )
+        );
+        return generateToken(claims, user);
     }
 
-    public String generateToken(
+    private String generateToken(
             Map<String, Object> extraClaims,
             UserDetails userDetails
     ) {
@@ -46,9 +54,17 @@ public class JwtService {
     }
 
     public String generateRefreshToken(
-            UserDetails userDetails
+            User user
     ) {
-        return buildToken(new HashMap<>(), userDetails, refreshExpiration);
+
+        var claims = new HashMap<String, Object>(
+                Map.of(
+                        "firstName", user.getFirstName(),
+                        "lastName", user.getLastName(),
+                        "phone", user.getPhone()
+                )
+        );
+        return buildToken(claims, user, refreshExpiration);
     }
 
     private String buildToken(
