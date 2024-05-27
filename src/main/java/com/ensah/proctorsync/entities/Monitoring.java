@@ -26,7 +26,7 @@ public class Monitoring {
     private Administrator administrator;
 
     @ManyToOne
-    private Room room;
+    private Classroom classroom;
 
     @ManyToOne
     private Exam exam;

@@ -1,4 +1,4 @@
-package com.ensah.proctorsync.Exception;
+package com.ensah.proctorsync.exception;
 
 public class ApiRequestException extends RuntimeException {
     public ApiRequestException(String message) {
