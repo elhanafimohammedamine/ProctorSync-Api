@@ -21,7 +21,7 @@ public class Branch {
 
     @OneToMany(mappedBy = "branch")
     private Collection<Professor> professors;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

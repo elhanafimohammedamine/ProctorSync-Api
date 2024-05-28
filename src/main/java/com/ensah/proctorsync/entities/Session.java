@@ -16,7 +16,7 @@ public class Session {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

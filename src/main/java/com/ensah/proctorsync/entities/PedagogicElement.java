@@ -30,7 +30,7 @@ public class PedagogicElement {
     @ManyToOne @JoinColumn(name = "coordinator_id")
     private Professor coordinator;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

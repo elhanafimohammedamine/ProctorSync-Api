@@ -3,6 +3,7 @@ package com.ensah.proctorsync.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -19,7 +20,14 @@ public class Classroom {
     private String bloc;
     private int capacity;
 
-    @OneToMany(mappedBy = "classroom")
+    @OneToMany(
+            mappedBy = "classroom",
+            fetch = FetchType.LAZY
+    )
     private Collection<Monitoring> monitoring;
+
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
 
 }

@@ -31,8 +31,7 @@ public class Monitoring {
     @ManyToOne
     private Exam exam;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-
 }

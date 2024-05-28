@@ -20,7 +20,7 @@ public class ExamType {
     @OneToMany(mappedBy = "examType")
     private Collection<Exam> exams;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 }

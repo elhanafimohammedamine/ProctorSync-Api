@@ -20,7 +20,7 @@ public class ElementType {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String typeTitle;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

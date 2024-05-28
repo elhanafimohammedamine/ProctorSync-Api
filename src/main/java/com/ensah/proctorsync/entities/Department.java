@@ -22,7 +22,7 @@ public class Department {
     @OneToMany(mappedBy = "department")
     private Collection<Professor> professors;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

@@ -20,7 +20,7 @@ public class Level {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String levelTitle;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

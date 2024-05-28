@@ -29,7 +29,7 @@ public class User implements UserDetails {
     private String phone;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 

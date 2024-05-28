@@ -21,7 +21,7 @@ public class Semester {
     private Collection<Exam> exams;
 
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 }
