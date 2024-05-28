@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 public class OperationCheck {
     private final static Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    public static  <T> String OperationCheck(T operationResult, String successMsg, String errorMsg) {
+    public static  <T> String check(T operationResult, String successMsg, String errorMsg) {
         boolean OperationWithSuccess = operationResult != null;
 
         if (OperationWithSuccess) {

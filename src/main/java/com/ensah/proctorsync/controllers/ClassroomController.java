@@ -26,7 +26,6 @@ public class ClassroomController {
     }
 
     @PostMapping("/create")
-
     public ResponseEntity<String> CreateClassroom(@Valid  @RequestBody NewClassroomRequest newClassroom) {
         return ResponseEntity.ok(classroomService.CreateNewClassroomService(newClassroom));
     }
