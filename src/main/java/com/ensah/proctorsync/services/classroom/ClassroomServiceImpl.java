@@ -4,6 +4,7 @@ import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.exception.NotFoundException;
+import com.ensah.proctorsync.helpers.OperationCheck;
 import com.ensah.proctorsync.repositories.classroom.IClassroomRepository;
 import com.ensah.proctorsync.services.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.ensah.proctorsync.helpers.OperationCheck.OperationCheck;
 
 
 @Service
@@ -55,7 +55,7 @@ public class ClassroomServiceImpl implements IClassroomService {
                 .build();
 
         Classroom createdClassroom = classroomRepository.save(classroomToCreate);
-        return OperationCheck(createdClassroom, "Classroom has been created successfully", "Failed to create classroom");
+        return OperationCheck.check(createdClassroom, "Classroom has been created successfully", "Failed to create classroom");
 
     }
 
@@ -79,7 +79,7 @@ public class ClassroomServiceImpl implements IClassroomService {
                 .build();
 
         Classroom updateClassroomResult = classroomRepository.save(updatedClassroom);
-        return OperationCheck(updateClassroomResult, "Classroom has been updated successfully", "Failed to update classroom");
+        return OperationCheck.check(updateClassroomResult, "Classroom has been updated successfully", "Failed to update classroom");
 
     }
 
@@ -96,7 +96,7 @@ public class ClassroomServiceImpl implements IClassroomService {
         originalClassroom.setDeletedAt(LocalDateTime.now());
 
         Classroom deletedClassroom = classroomRepository.save(originalClassroom);
-        return OperationCheck(deletedClassroom, "Classroom has been deleted successfully", "Failed to delete classroom");
+        return OperationCheck.check(deletedClassroom, "Classroom has been deleted successfully", "Failed to delete classroom");
 
     }
 }
