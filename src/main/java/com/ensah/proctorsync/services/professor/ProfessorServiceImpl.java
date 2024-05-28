@@ -84,20 +84,12 @@ public class ProfessorServiceImpl implements IProfessorService {
                 .phone(newProfessorRequest.getPhone())
                 .branch(branch)
                 .department(department)
+                .createdAt(LocalDateTime.now())
                 .build();
 
 
         Professor savedProfessor =  professorRepository.save(newProfessor);
-        // Check if the professor was successfully saved by verifying the ID
-        boolean professorSavedWithSuccess = savedProfessor.getId() != null;
-
-        if (professorSavedWithSuccess) {
-            LOGGER.info("Professor saved successfully: {}", savedProfessor);
-        } else {
-            LOGGER.error("Failed to save professor: {}", newProfessor);
-        }
-
-        return "Professor created successfully";
+        return OperationCheck.check(savedProfessor, "Professor saved successfully", "Failed to save professor");
     }
 
     @Override

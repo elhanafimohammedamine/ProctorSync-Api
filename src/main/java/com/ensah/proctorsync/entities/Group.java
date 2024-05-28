@@ -17,8 +17,9 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(unique = true)
     private String groupName;
-
+    private String description;
     @OneToMany(
             mappedBy = "group",
             fetch = FetchType.EAGER
