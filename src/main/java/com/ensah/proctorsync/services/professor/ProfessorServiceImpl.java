@@ -15,9 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-import static com.ensah.proctorsync.helpers.OperationCheck.OperationCheck;
 
 @Service
 @Transactional
@@ -81,7 +78,15 @@ public class ProfessorServiceImpl implements IProfessorService {
 
         Professor savedProfessor =  professorRepository.save(newProfessor);
         // Check if the professor was successfully saved by verifying the ID
-        return OperationCheck(savedProfessor, "Professor has been saved successfully", "Failed to save professor");
+        boolean professorSavedWithSuccess = savedProfessor.getId() != null;
+
+        if (professorSavedWithSuccess) {
+            LOGGER.info("Professor saved successfully: {}", savedProfessor);
+        } else {
+            LOGGER.error("Failed to save professor: {}", newProfessor);
+        }
+
+        return "Professor created successfully";
     }
 
 
