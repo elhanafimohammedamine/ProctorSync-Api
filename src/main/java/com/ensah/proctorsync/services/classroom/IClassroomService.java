@@ -1,7 +1,8 @@
-package com.ensah.proctorsync.services.Classroom;
+package com.ensah.proctorsync.services.classroom;
 
 import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 import com.ensah.proctorsync.entities.Classroom;
+
 import java.util.Collection;
 import java.util.UUID;
 

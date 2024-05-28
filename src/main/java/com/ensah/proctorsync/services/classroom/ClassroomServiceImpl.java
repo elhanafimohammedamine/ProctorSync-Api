@@ -1,6 +1,6 @@
-package com.ensah.proctorsync.services.Classroom;
-
+package com.ensah.proctorsync.services.classroom;
 import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
+
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.exception.NotFoundException;
@@ -58,6 +58,8 @@ public class ClassroomServiceImpl implements IClassroomService {
         return OperationCheck(createdClassroom, "Classroom has been created successfully", "Failed to create classroom");
 
     }
+
+
 
     @Override
     public String UpdateClassroomService(UUID classroomId, NewClassroomRequest updateClassroomRequest) {

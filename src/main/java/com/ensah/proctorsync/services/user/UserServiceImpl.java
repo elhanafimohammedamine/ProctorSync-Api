@@ -2,7 +2,11 @@ package com.ensah.proctorsync.services.user;
 
 import com.ensah.proctorsync.entities.User;
 import com.ensah.proctorsync.exception.NotFoundException;
+import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.repositories.user.IUserRepository;
+
+import com.ensah.proctorsync.repositories.user.IUserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

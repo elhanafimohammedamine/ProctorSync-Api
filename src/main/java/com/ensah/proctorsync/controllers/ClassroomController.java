@@ -2,7 +2,7 @@ package com.ensah.proctorsync.controllers;
 
 import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 import com.ensah.proctorsync.entities.Classroom;
-import com.ensah.proctorsync.services.Classroom.IClassroomService;
+import com.ensah.proctorsync.services.classroom.IClassroomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +26,17 @@ public class ClassroomController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> CreateClassroom(@Valid  @RequestBody NewClassroomRequest newClassroomRequest) {
-        return ResponseEntity.ok(classroomService.CreateNewClassroomService(newClassroomRequest));
+
+    public ResponseEntity<String> CreateClassroom(@Valid  @RequestBody NewClassroomRequest newClassroom) {
+        return ResponseEntity.ok(classroomService.CreateNewClassroomService(newClassroom));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> UpdateClassroom(@PathVariable UUID id, @Valid  @RequestBody NewClassroomRequest updateClassroom) {
         return ResponseEntity.ok(classroomService.UpdateClassroomService(id, updateClassroom));
     }
+
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> DeleteClassroom(@PathVariable UUID id) {
