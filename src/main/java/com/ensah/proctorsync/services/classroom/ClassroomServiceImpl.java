@@ -1,10 +1,9 @@
-package com.ensah.proctorsync.services.Classroom;
+package com.ensah.proctorsync.services.classroom;
 
-import com.ensah.proctorsync.DTOs.Classroom.NewClassroom;
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.exception.NotFoundException;
-import com.ensah.proctorsync.repositories.IClassroomRepository;
+import com.ensah.proctorsync.repositories.classroom.IClassroomRepository;
 import com.ensah.proctorsync.services.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ public class ClassroomServiceImpl implements IClassroomService {
     }
 
     @Override
-    public String CreateNewClassroomService(NewClassroom newClassroom) {
+    public String CreateNewClassroomService(com.ensah.proctorsync.DTOs.Classroom.NewClassroomRequest newClassroom) {
         Optional<Classroom> classroom = classroomRepository.findClassroomByNameAndBloc(newClassroom.getRoomName(), newClassroom.getBloc());
         if(classroom.isPresent()) {
             AlreadyExistException alreadyExistException = new AlreadyExistException("classroom with name " + classroom.get().getName() + " is already exist !");
@@ -54,14 +53,13 @@ public class ClassroomServiceImpl implements IClassroomService {
 
         classroomRepository.save(classroomToCreate);
 
-        String successMessge = "Classroom has been created successfully";
-        return successMessge;
+        return "Classroom has been created successfully";
     }
 
     @Override
-    public String UpdateClassroomService(UUID classroomId, NewClassroom updateClassroomRequest) {
+    public String UpdateClassroomService(UUID classroomId, com.ensah.proctorsync.DTOs.Classroom.NewClassroomRequest updateClassroomRequest) {
         Optional<Classroom> optionalClassroom = classroomRepository.findById(classroomId);
-        if(!optionalClassroom.isPresent()) {
+        if(optionalClassroom.isEmpty()) {
             NotFoundException notFoundException = new NotFoundException("classroom with id " + classroomId + " doesn't exist !");
             LOGGER.error("Error while updating classroom with id {}", classroomId, notFoundException);
             throw notFoundException;
@@ -84,7 +82,7 @@ public class ClassroomServiceImpl implements IClassroomService {
     @Override
     public String SoftDeleteClassroomService(UUID classroomId) {
         Optional<Classroom> optionalClassroom = classroomRepository.findById(classroomId);
-        if(!optionalClassroom.isPresent()) {
+        if(optionalClassroom.isEmpty()) {
             NotFoundException notFoundException = new NotFoundException("classroom with id " + classroomId + " doesn't exist !");
             LOGGER.error("Error while updating classroom with id {}", classroomId, notFoundException);
             throw notFoundException;
@@ -95,7 +93,6 @@ public class ClassroomServiceImpl implements IClassroomService {
 
         classroomRepository.save(originalClassroom);
 
-        String successMessge = "Classroom has been deleted successfully";
-        return successMessge;
+        return "Classroom has been deleted successfully";
     }
 }

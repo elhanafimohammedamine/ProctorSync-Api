@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewClassroom {
+public class NewClassroomRequest {
     @NotBlank
     @Length(min = 4, max = 30, message = "Classroom name must be between 4 and 30 characters long")
     private String roomName;

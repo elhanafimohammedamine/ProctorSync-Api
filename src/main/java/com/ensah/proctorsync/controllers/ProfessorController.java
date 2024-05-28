@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfessorController {
     private final IProfessorService professorService;
 
-    @PostMapping("/new-professor")
+    @PostMapping("/create")
     public ResponseEntity<String> createNewProfessor(@RequestBody NewProfessorRequest newProfessorRequest) {
         return ResponseEntity.ok(professorService.save(newProfessorRequest));
     }
