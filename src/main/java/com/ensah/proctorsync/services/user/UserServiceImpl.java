@@ -3,11 +3,7 @@ package com.ensah.proctorsync.services.user;
 import com.ensah.proctorsync.entities.User;
 import com.ensah.proctorsync.exception.NotFoundException;
 import com.ensah.proctorsync.exception.AlreadyExistException;
-<<<<<<< Updated upstream
 import com.ensah.proctorsync.repositories.user.IUserRepository;
-=======
-import com.ensah.proctorsync.repositories.IUserRepository;
->>>>>>> Stashed changes
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,15 +39,9 @@ public class UserServiceImpl implements IUserService {
                 .findByEmail(newUser.getEmail());
 
         if (user.isPresent()) {
-<<<<<<< Updated upstream
-            AlreadyExistException userAlreadyExistException = new AlreadyExistException("USER WITH EMAIL " + user.get().getEmail() + "ALREADY EXIST!");
-            LOGGER.error("Error while saving new user with email {}", user.get().getEmail(), userAlreadyExistException);
-            throw userAlreadyExistException;
-=======
             AlreadyExistException alreadyExistException = new AlreadyExistException("USER WITH EMAIL " + user.get().getEmail() + "ALREADY EXIST!");
             LOGGER.error("Error while saving new user with email {}", user.get().getEmail(), alreadyExistException);
             throw alreadyExistException;
->>>>>>> Stashed changes
         }
 
         return userRepository.save(newUser);

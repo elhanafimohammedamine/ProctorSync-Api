@@ -4,7 +4,7 @@ import com.ensah.proctorsync.DTOs.Classroom.NewClassroom;
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.exception.NotFoundException;
-import com.ensah.proctorsync.repositories.IClassroomRepository;
+import com.ensah.proctorsync.repositories.classroom.IClassroomRepository;
 import com.ensah.proctorsync.services.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

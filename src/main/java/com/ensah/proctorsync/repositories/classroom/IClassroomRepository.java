@@ -1,4 +1,4 @@
-package com.ensah.proctorsync.repositories;
+package com.ensah.proctorsync.repositories.classroom;
 
 import com.ensah.proctorsync.entities.Classroom;
 import org.springframework.data.domain.Page;
