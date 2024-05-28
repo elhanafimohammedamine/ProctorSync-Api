@@ -1,4 +1,4 @@
-package com.ensah.proctorsync.DTOs.Classroom;
+package com.ensah.proctorsync.DTOs.classroom;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

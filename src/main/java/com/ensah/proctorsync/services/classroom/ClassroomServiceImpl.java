@@ -1,4 +1,5 @@
 package com.ensah.proctorsync.services.classroom;
+import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.exception.AlreadyExistException;
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.ensah.proctorsync.helpers.OperationCheck.OperationCheck;
 
 
 @Service
@@ -38,7 +41,7 @@ public class ClassroomServiceImpl implements IClassroomService {
     }
 
     @Override
-    public String CreateNewClassroomService(com.ensah.proctorsync.DTOs.Classroom.NewClassroomRequest newClassroom) {
+    public String CreateNewClassroomService(NewClassroomRequest newClassroom) {
         Optional<Classroom> classroom = classroomRepository.findClassroomByNameAndBloc(newClassroom.getRoomName(), newClassroom.getBloc());
         if(classroom.isPresent()) {
             AlreadyExistException alreadyExistException = new AlreadyExistException("classroom with name " + classroom.get().getName() + " is already exist !");
@@ -51,13 +54,15 @@ public class ClassroomServiceImpl implements IClassroomService {
                 .capacity(newClassroom.getCapacity())
                 .build();
 
-        classroomRepository.save(classroomToCreate);
+        Classroom createdClassroom = classroomRepository.save(classroomToCreate);
+        return OperationCheck(createdClassroom, "Classroom has been created successfully", "Failed to create classroom");
 
-        return "Classroom has been created successfully";
     }
 
+
+
     @Override
-    public String UpdateClassroomService(UUID classroomId, com.ensah.proctorsync.DTOs.Classroom.NewClassroomRequest updateClassroomRequest) {
+    public String UpdateClassroomService(UUID classroomId, NewClassroomRequest updateClassroomRequest) {
         Optional<Classroom> optionalClassroom = classroomRepository.findById(classroomId);
         if(optionalClassroom.isEmpty()) {
             NotFoundException notFoundException = new NotFoundException("classroom with id " + classroomId + " doesn't exist !");
@@ -73,10 +78,9 @@ public class ClassroomServiceImpl implements IClassroomService {
                 .capacity(updateClassroomRequest.getCapacity())
                 .build();
 
-        classroomRepository.save(updatedClassroom);
+        Classroom updateClassroomResult = classroomRepository.save(updatedClassroom);
+        return OperationCheck(updateClassroomResult, "Classroom has been updated successfully", "Failed to update classroom");
 
-        String successMessge = "Classroom has been updated successfully";
-        return successMessge;
     }
 
     @Override
@@ -91,8 +95,8 @@ public class ClassroomServiceImpl implements IClassroomService {
         Classroom originalClassroom = optionalClassroom.get();
         originalClassroom.setDeletedAt(LocalDateTime.now());
 
-        classroomRepository.save(originalClassroom);
+        Classroom deletedClassroom = classroomRepository.save(originalClassroom);
+        return OperationCheck(deletedClassroom, "Classroom has been deleted successfully", "Failed to delete classroom");
 
-        return "Classroom has been deleted successfully";
     }
 }

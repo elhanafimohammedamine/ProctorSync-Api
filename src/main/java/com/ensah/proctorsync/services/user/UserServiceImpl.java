@@ -5,12 +5,12 @@ import com.ensah.proctorsync.exception.NotFoundException;
 import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.repositories.user.IUserRepository;
 
+import com.ensah.proctorsync.repositories.user.IUserRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

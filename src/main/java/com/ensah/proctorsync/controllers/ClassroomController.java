@@ -1,5 +1,6 @@
 package com.ensah.proctorsync.controllers;
 
+import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.services.classroom.IClassroomService;
 import jakarta.validation.Valid;
@@ -25,14 +26,17 @@ public class ClassroomController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> CreateClassroom(@Valid  @RequestBody com.ensah.proctorsync.DTOs.Classroom.NewClassroomRequest newClassroom) {
+
+    public ResponseEntity<String> CreateClassroom(@Valid  @RequestBody NewClassroomRequest newClassroom) {
         return ResponseEntity.ok(classroomService.CreateNewClassroomService(newClassroom));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> UpdateClassroom(@PathVariable UUID id, @Valid  @RequestBody com.ensah.proctorsync.DTOs.Classroom.NewClassroomRequest updateClassroom) {
+    public ResponseEntity<String> UpdateClassroom(@PathVariable UUID id, @Valid  @RequestBody NewClassroomRequest updateClassroom) {
         return ResponseEntity.ok(classroomService.UpdateClassroomService(id, updateClassroom));
     }
+
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> DeleteClassroom(@PathVariable UUID id) {
