@@ -16,6 +16,7 @@ public class Classroom {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    private String bloc;
     private int capacity;
 
     @OneToMany(mappedBy = "classroom")

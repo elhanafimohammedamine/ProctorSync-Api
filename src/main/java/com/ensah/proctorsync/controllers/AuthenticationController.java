@@ -5,7 +5,9 @@ import com.ensah.proctorsync.DTOs.authentication.AuthenticationRequest;
 import com.ensah.proctorsync.DTOs.authentication.AuthenticationResponse;
 import com.ensah.proctorsync.DTOs.authentication.RegistrationRequest;
 import com.ensah.proctorsync.services.authentication.IAuthenticationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegistrationRequest registrationRequest) {
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
         return ResponseEntity.ok(authenticationService.register(registrationRequest));
     }
 
