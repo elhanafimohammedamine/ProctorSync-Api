@@ -2,7 +2,6 @@ package com.ensah.proctorsync.services.authentication;
 
 import com.ensah.proctorsync.DTOs.authentication.AuthenticationRequest;
 import com.ensah.proctorsync.DTOs.authentication.AuthenticationResponse;
-import com.ensah.proctorsync.DTOs.authentication.RegistrationRequest;
 import com.ensah.proctorsync.config.JwtService;
 import com.ensah.proctorsync.entities.User;
 import com.ensah.proctorsync.services.user.IUserService;
@@ -43,25 +42,5 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
                 .build();
     }
 
-    @Override
-    public AuthenticationResponse register(RegistrationRequest registrationRequest) {
 
-        User newUser = User.builder()
-                .firstName(registrationRequest.getFirstName())
-                .lastName(registrationRequest.getLastName())
-                .email(registrationRequest.getEmail())
-                .password(passwordEncoder.encode(registrationRequest.getPassword()))
-                .phone(registrationRequest.getPhone())
-                .build();
-
-        User savedUser = userService.saveUser(newUser);
-        String accessToken = jwtService.generateToken(savedUser);
-        String refreshToken = jwtService.generateRefreshToken(savedUser);
-
-        return AuthenticationResponse
-                .builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
 }

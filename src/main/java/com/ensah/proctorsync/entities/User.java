@@ -2,6 +2,7 @@ package com.ensah.proctorsync.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,11 +12,10 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Data
-@Builder
 @Entity
 @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
+@SuperBuilder
 @Table(name = "`user`")
 public class User implements UserDetails {
     @Id

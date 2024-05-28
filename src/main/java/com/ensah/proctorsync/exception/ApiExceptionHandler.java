@@ -35,8 +35,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = UserAlreadyExistException.class)
-    public ResponseEntity<Object> UserAlreadyExistException(UserAlreadyExistException e) {
+    @ExceptionHandler(value = AlreadyExistException.class)
+    public ResponseEntity<Object> UserAlreadyExistException(AlreadyExistException e) {
         ApiException apiException = new ApiException(e.getMessage(), e, HttpStatus.NOT_FOUND, ZonedDateTime.now());
         return new ResponseEntity<>(apiException, HttpStatus.CONFLICT);
     }
