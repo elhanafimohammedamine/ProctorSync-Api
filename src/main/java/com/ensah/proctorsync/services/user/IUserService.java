@@ -6,6 +6,5 @@ import java.util.Optional;
 
 public interface IUserService {
      User loadUserByEmail(String email);
-     User saveUser(User user);
 
 }

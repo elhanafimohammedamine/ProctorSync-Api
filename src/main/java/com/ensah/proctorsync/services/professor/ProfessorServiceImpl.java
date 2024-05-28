@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.ensah.proctorsync.helpers.OperationCheck.OperationCheck;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -79,15 +81,7 @@ public class ProfessorServiceImpl implements IProfessorService {
 
         Professor savedProfessor =  professorRepository.save(newProfessor);
         // Check if the professor was successfully saved by verifying the ID
-        boolean professorSavedWithSuccess = savedProfessor.getId() != null;
-
-        if (professorSavedWithSuccess) {
-            LOGGER.info("Professor saved successfully: {}", savedProfessor);
-        } else {
-            LOGGER.error("Failed to save professor: {}", newProfessor);
-        }
-
-        return "Professor created successfully";
+        return OperationCheck(savedProfessor, "Professor has been saved successfully", "Failed to save professor");
     }
 
 
