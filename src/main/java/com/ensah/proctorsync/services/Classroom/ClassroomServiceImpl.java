@@ -19,6 +19,8 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.ensah.proctorsync.helpers.OperationCheck.OperationCheck;
+
 
 @Service
 @RequiredArgsConstructor
@@ -52,9 +54,9 @@ public class ClassroomServiceImpl implements IClassroomService {
                 .capacity(newClassroom.getCapacity())
                 .build();
 
-        classroomRepository.save(classroomToCreate);
+        Classroom createdClassroom = classroomRepository.save(classroomToCreate);
+        return OperationCheck(createdClassroom, "Classroom has been created successfully", "Failed to create classroom");
 
-        return "Classroom has been created successfully";
     }
 
     @Override
@@ -74,10 +76,9 @@ public class ClassroomServiceImpl implements IClassroomService {
                 .capacity(updateClassroomRequest.getCapacity())
                 .build();
 
-        classroomRepository.save(updatedClassroom);
+        Classroom updateClassroomResult = classroomRepository.save(updatedClassroom);
+        return OperationCheck(updateClassroomResult, "Classroom has been updated successfully", "Failed to update classroom");
 
-        String successMessge = "Classroom has been updated successfully";
-        return successMessge;
     }
 
     @Override
@@ -92,8 +93,8 @@ public class ClassroomServiceImpl implements IClassroomService {
         Classroom originalClassroom = optionalClassroom.get();
         originalClassroom.setDeletedAt(LocalDateTime.now());
 
-        classroomRepository.save(originalClassroom);
+        Classroom deletedClassroom = classroomRepository.save(originalClassroom);
+        return OperationCheck(deletedClassroom, "Classroom has been deleted successfully", "Failed to delete classroom");
 
-        return "Classroom has been deleted successfully";
     }
 }
