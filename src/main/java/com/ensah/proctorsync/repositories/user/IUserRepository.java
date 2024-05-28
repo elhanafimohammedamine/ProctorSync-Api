@@ -1,4 +1,4 @@
-package com.ensah.proctorsync.repositories;
+package com.ensah.proctorsync.repositories.user;
 
 import com.ensah.proctorsync.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;

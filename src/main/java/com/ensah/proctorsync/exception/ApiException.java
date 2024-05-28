@@ -1,5 +1,6 @@
 package com.ensah.proctorsync.exception;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.time.ZonedDateTime;
@@ -9,6 +10,7 @@ import java.util.Map;
 // @Data // this comes from lombok
 // and it used to creates AllArgsConstructor, getters, setter, toString, equals and hashCode
 // if we use this annotation we don't need to write all of this code
+@Getter
 public class ApiException {
     private final String message;
     private final Map<String , String> errors;
@@ -37,22 +39,6 @@ public class ApiException {
                 ", httpStatus=" + httpStatus +
                 ", zonedDateTime=" + zonedDateTime +
                 '}';
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public HttpStatus getHttpStatus() {
-        return httpStatus;
-    }
-
-    public ZonedDateTime getZonedDateTime() {
-        return zonedDateTime;
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
     }
 
 }

@@ -1,16 +1,22 @@
 package com.ensah.proctorsync.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Collection;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode(callSuper = true)
 @Entity
+@SuperBuilder
 public class Professor extends User {
 
     @ManyToOne
@@ -27,4 +33,6 @@ public class Professor extends User {
 
     @OneToMany(mappedBy = "coordinator")
     private Collection<Monitoring> coordinatingMonitoring;
+
+
 }

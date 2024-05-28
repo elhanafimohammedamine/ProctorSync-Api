@@ -1,4 +1,4 @@
-package com.ensah.proctorsync.DTOs.Classroom;
+package com.ensah.proctorsync.DTOs.classroom;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
