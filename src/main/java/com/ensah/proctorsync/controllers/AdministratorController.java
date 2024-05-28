@@ -4,7 +4,6 @@ import com.ensah.proctorsync.DTOs.administrator.AdministratorResponse;
 import com.ensah.proctorsync.DTOs.administrator.AdministratorUpdateRequest;
 import com.ensah.proctorsync.DTOs.administrator.NewAdministratorRequest;
 import com.ensah.proctorsync.services.administrator.IAdministratorService;
-import io.swagger.v3.oas.models.media.UUIDSchema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

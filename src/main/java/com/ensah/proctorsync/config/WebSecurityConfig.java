@@ -26,6 +26,7 @@ public class WebSecurityConfig {
             "api/v1/classroom/**",
             "api/v1/professor/**",
             "api/v1/administrator/**",
+            "api/v1/group/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",

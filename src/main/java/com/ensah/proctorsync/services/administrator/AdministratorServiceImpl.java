@@ -67,6 +67,7 @@ public class AdministratorServiceImpl implements IAdministratorService {
                 .lastName(newAdministratorRequest.getLastName())
                 .email(newAdministratorRequest.getEmail())
                 .phone(newAdministratorRequest.getPhone())
+                .createdAt(LocalDateTime.now())
                 .build();
 
 
