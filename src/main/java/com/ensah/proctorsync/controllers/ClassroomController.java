@@ -1,5 +1,6 @@
 package com.ensah.proctorsync.controllers;
 
+import com.ensah.proctorsync.DTOs.classroom.ClassRoomResponse;
 import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.services.classroom.IClassroomService;
@@ -17,8 +18,8 @@ import java.util.UUID;
 public class ClassroomController {
     private final IClassroomService classroomService;
 
-    @GetMapping("/classrooms")
-    public ResponseEntity<Collection<Classroom>> GetClassrooms(
+    @GetMapping
+    public ResponseEntity<Collection<ClassRoomResponse>> GetClassrooms(
             @RequestParam(required = false, defaultValue = "") String query,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int pageSize){

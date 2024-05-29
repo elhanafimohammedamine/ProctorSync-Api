@@ -8,6 +8,7 @@ import java.sql.Struct;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public interface IProfessorRepository extends JpaRepository<Professor, UUID> {
     Optional<Professor> findByEmail(String email);
     boolean existsByEmail(String email);

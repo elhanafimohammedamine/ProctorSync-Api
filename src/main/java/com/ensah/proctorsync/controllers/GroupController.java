@@ -43,6 +43,11 @@ public class GroupController {
         return ResponseEntity.ok(groupService.update(id, groupUpdateRequest));
     }
 
+    @PostMapping("add-members/{id}")
+    public ResponseEntity<String> addMembers(@PathVariable UUID id, @RequestBody Collection<UUID> professorsIds) {
+        return ResponseEntity.ok(groupService.addProfessorsToGroup(id, professorsIds));
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteGroup(@PathVariable UUID id) {
