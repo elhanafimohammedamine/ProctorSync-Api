@@ -4,16 +4,19 @@ import com.ensah.proctorsync.DTOs.group.GroupResponse;
 import com.ensah.proctorsync.DTOs.group.GroupUpdateRequest;
 import com.ensah.proctorsync.DTOs.group.NewGroupRequest;
 import com.ensah.proctorsync.entities.Group;
+import com.ensah.proctorsync.entities.Professor;
 import com.ensah.proctorsync.exception.AlreadyExistException;
 import com.ensah.proctorsync.exception.ApiRequestException;
 import com.ensah.proctorsync.exception.NotFoundException;
 import com.ensah.proctorsync.helpers.OperationCheck;
 import com.ensah.proctorsync.mappers.IGroupMapper;
 import com.ensah.proctorsync.repositories.group.IGroupRepository;
+import com.ensah.proctorsync.services.professor.IProfessorService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -21,9 +24,11 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class GroupServiceImpl implements IGroupService {
 
     private final IGroupRepository groupRepository;
+    private final IProfessorService professorService;
     private final IGroupMapper groupMapper;
     private final static Logger LOGGER = LoggerFactory.getLogger(GroupServiceImpl.class);
 
@@ -104,6 +109,29 @@ public class GroupServiceImpl implements IGroupService {
     }
 
     @Override
+    public String addProfessorsToGroup(UUID groupId, Collection<UUID> professorIds) {
+
+        Group group = groupRepository
+                .findById(groupId)
+                .orElseThrow(
+                        () -> {
+                            NotFoundException notFoundException = new NotFoundException("Group with id " + groupId + " does not exist");
+                            LOGGER.error("Error while deleting group, exception thrown because of group does not exist", notFoundException);
+                            return notFoundException;
+                        }
+                );
+
+        Collection<Professor> professors = professorService.getProfessorsById(professorIds);
+        professors.forEach(professor -> professor.setGroup(group));
+        group.getProfessors().addAll(professors);
+
+        Group savedGroup = groupRepository.save(group);
+
+        return OperationCheck.check(savedGroup, "Members added successfully", "Failed to add members to group");
+    }
+
+
+    @Override
     public String delete(UUID groupId) {
 
         Group group = groupRepository
@@ -121,4 +149,5 @@ public class GroupServiceImpl implements IGroupService {
 
         return OperationCheck.check(deletedGroup, "Group deleted successfully", "Failed to delete group");
     }
+
 }

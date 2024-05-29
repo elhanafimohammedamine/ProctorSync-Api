@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Builder
-@NoArgsConstructor @AllArgsConstructor @ToString
+@NoArgsConstructor @AllArgsConstructor
 public class Classroom {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)

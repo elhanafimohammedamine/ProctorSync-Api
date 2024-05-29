@@ -14,7 +14,6 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 @SuperBuilder
 public class Professor extends User {
