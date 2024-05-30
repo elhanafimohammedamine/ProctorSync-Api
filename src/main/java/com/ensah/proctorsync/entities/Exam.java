@@ -17,12 +17,16 @@ public class Exam {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private LocalDate startedOn;
-    private LocalTime expectStartTime;
-    private LocalTime realStartTime;
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private int expectedDuration;
+    private int realDuration;
     private String testFilePath;
     private String pvFilePath;
     private String report;
+
+    @ManyToOne
+    private PedagogicElement pedagogicElement;
 
     @OneToMany(mappedBy = "exam")
     private Collection<Monitoring> monitoring;
@@ -35,8 +39,12 @@ public class Exam {
 
     @ManyToOne
     private Semester semester;
-
+    private String academicYear;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
+
+
 }

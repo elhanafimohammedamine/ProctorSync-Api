@@ -6,6 +6,7 @@ import com.ensah.proctorsync.DTOs.pedagogicelement.PedagogicElementUpdateRequest
 import com.ensah.proctorsync.entities.PedagogicElement;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface IPedagogicElementService {
@@ -14,4 +15,5 @@ public interface IPedagogicElementService {
     String delete(UUID pedagogicElementId);
     PedagogicElementResponse getPedagogicElementById(UUID pedagogicElementId);
     Collection<PedagogicElementResponse> getAllPedagogicElements();
+    Optional<PedagogicElement> findPedagogicElementById(UUID id);
 }

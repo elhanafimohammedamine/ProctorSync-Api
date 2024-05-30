@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.UUID;
 
 @Data
@@ -29,6 +30,9 @@ public class PedagogicElement {
 
     @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name = "coordinator_id")
     private Professor coordinator;
+
+    @OneToMany(mappedBy = "pedagogicElement")
+    private Collection<Exam> exams;
 
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;

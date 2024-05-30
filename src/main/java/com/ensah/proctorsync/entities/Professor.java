@@ -33,5 +33,4 @@ public class Professor extends User {
     @OneToMany(mappedBy = "coordinator")
     private Collection<Monitoring> coordinatingMonitoring;
 
-
 }

@@ -207,6 +207,13 @@ public class ProfessorServiceImpl implements IProfessorService {
         return professorRepository.findById(id);
     }
 
+    @Override
+    public Collection<ProfessorResponse> getAllProfessorsWithoutGroup() {
+        return professorMapper.professorsToProfessorsResponse(
+                professorRepository.findAllByGroupIsNull()
+        );
+    }
+
 
     private boolean professorExists(String email) {
         return professorRepository.existsByEmail(email);

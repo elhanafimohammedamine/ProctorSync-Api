@@ -6,6 +6,7 @@ import com.ensah.proctorsync.DTOs.professor.ProfessorUpdateRequest;
 import com.ensah.proctorsync.services.professor.IProfessorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,5 +45,10 @@ public class ProfessorController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteProfessor(@PathVariable UUID id) {
         return ResponseEntity.ok(professorService.delete(id));
+    }
+
+    @GetMapping("/professors-without-group")
+    public ResponseEntity<Collection<ProfessorResponse>> getAllProfessorsWithoutGroup() {
+        return ResponseEntity.ok(professorService.getAllProfessorsWithoutGroup());
     }
 }

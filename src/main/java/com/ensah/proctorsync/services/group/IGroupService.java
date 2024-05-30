@@ -15,6 +15,5 @@ public interface IGroupService {
     String save(NewGroupRequest newGroupRequest);
     String update(UUID groupId, GroupUpdateRequest updateGroupRequest);
     String addProfessorsToGroup(UUID groupId, Collection<UUID> professorIds);
-
     String delete(UUID groupId);
 }

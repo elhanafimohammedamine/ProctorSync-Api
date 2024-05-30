@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 
 @Service
@@ -145,6 +146,8 @@ public class GroupServiceImpl implements IGroupService {
                 );
 
         group.setDeletedAt(LocalDateTime.now());
+        group.getProfessors().forEach(prof -> prof.setGroup(null));
+        group.setProfessors(Collections.emptyList());
         Group deletedGroup = groupRepository.save(group);
 
         return OperationCheck.check(deletedGroup, "Group deleted successfully", "Failed to delete group");

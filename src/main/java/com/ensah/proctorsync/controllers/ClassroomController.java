@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -20,11 +21,8 @@ public class ClassroomController {
     private final IClassroomService classroomService;
 
     @GetMapping
-    public ResponseEntity<Collection<ClassRoomResponse>> GetClassrooms(
-            @RequestParam(required = false, defaultValue = "") String query,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "8") int pageSize){
-        return ResponseEntity.ok(classroomService.GetAllClassrooms(query, page, pageSize));
+    public ResponseEntity<Collection<ClassRoomResponse>> GetClassrooms(){
+        return ResponseEntity.ok(classroomService.GetAllClassrooms());
     }
 
     @PostMapping("/create")
@@ -42,5 +40,13 @@ public class ClassroomController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> DeleteClassroom(@PathVariable UUID id) {
         return ResponseEntity.ok(classroomService.SoftDeleteClassroomService(id));
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<Collection<ClassRoomResponse>> getAvailableClassrooms(
+            @RequestParam String startDateTime,
+            @RequestParam String endDateTime
+    ) {
+        return ResponseEntity.ok(classroomService.getAvailableClassrooms(startDateTime, endDateTime));
     }
 }

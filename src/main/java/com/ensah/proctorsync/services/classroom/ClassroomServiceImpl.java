@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,16 +36,10 @@ public class ClassroomServiceImpl implements IClassroomService {
     private final IClassRoomMapper classRoomMapper;
 
     @Override
-    public Collection<ClassRoomResponse> GetAllClassrooms(String searchQuery, int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize);
-
-        if (searchQuery != null && !searchQuery.isEmpty()) {
-            Page<Classroom> result = classroomRepository.getAllClassrooms(searchQuery, pageable);
-            return classRoomMapper.classRoomsToClassRoomsResponse(result.getContent());
-        } else {
-            Page<Classroom> result =  classroomRepository.findAll(pageable);
-            return classRoomMapper.classRoomsToClassRoomsResponse(result.getContent());
-        }
+    public Collection<ClassRoomResponse> GetAllClassrooms() {
+        return classRoomMapper.classRoomsToClassRoomsResponse(
+                classroomRepository.findAllByDeletedAtIsNullOrderByCreatedAtDesc()
+        );
     }
 
     @Override
@@ -108,5 +103,30 @@ public class ClassroomServiceImpl implements IClassroomService {
         Classroom deletedClassroom = classroomRepository.save(originalClassroom);
         return OperationCheck.check(deletedClassroom, "Classroom has been deleted successfully", "Failed to delete classroom");
 
+    }
+
+    @Override
+    public Collection<ClassRoomResponse> getAvailableClassrooms(String startDateTime, String endDateTime) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime stDateTime = LocalDateTime.parse(startDateTime, formatter);
+        LocalDateTime edDateTime = LocalDateTime.parse(endDateTime, formatter);
+
+        return classRoomMapper.classRoomsToClassRoomsResponse(
+                classroomRepository.findAvailableRooms(
+                        stDateTime,
+                        edDateTime
+                )
+        );
+    }
+
+    @Override
+    public Optional<Classroom> findClassroomById(UUID id) {
+        return classroomRepository.findById(id);
+    }
+
+    @Override
+    public Classroom save(Classroom classroom) {
+        return classroomRepository.save(classroom);
     }
 }
