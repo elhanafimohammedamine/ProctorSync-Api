@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ElementTypeService implements IElementTypeService {
+public class ElementTypeServiceImpl implements IElementTypeService {
     private final IElementTypeRepository elementTypeRepository;
     private final IElementTypeMapper elementTypeMapper;
     @Override

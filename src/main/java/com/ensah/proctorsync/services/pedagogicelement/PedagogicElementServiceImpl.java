@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -219,6 +220,11 @@ public class PedagogicElementServiceImpl implements IPedagogicElementService {
         return pedagogicElementMapper.pedagogicElementsToPedagogicElementsResponse(
                 pedagogicElementRepository.findAll()
         );
+    }
+
+    @Override
+    public Optional<PedagogicElement> findPedagogicElementById(UUID id) {
+        return pedagogicElementRepository.findById(id);
     }
 
 

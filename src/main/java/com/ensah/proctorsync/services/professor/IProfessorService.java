@@ -17,6 +17,7 @@ public interface IProfessorService {
     String delete(UUID professorId);
     Collection<Professor> getProfessorsById(Collection<UUID> professorIds);
     Optional<Professor> findProfessorById(UUID id);
+    Collection<ProfessorResponse> getAllProfessorsWithoutGroup();
 
 
 
