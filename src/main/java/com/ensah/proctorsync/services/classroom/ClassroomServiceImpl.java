@@ -1,5 +1,6 @@
 package com.ensah.proctorsync.services.classroom;
 import com.ensah.proctorsync.DTOs.classroom.ClassRoomResponse;
+import com.ensah.proctorsync.DTOs.classroom.ClassroomUpdateRequest;
 import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 
 import com.ensah.proctorsync.entities.Classroom;
@@ -38,7 +39,7 @@ public class ClassroomServiceImpl implements IClassroomService {
         Pageable pageable = PageRequest.of(page, pageSize);
 
         if (searchQuery != null && !searchQuery.isEmpty()) {
-            Page<Classroom> result = classroomRepository.findClassroomsByNameContainingIgnoreCase(searchQuery, pageable);
+            Page<Classroom> result = classroomRepository.getAllClassrooms(searchQuery, pageable);
             return classRoomMapper.classRoomsToClassRoomsResponse(result.getContent());
         } else {
             Page<Classroom> result =  classroomRepository.findAll(pageable);
@@ -69,7 +70,7 @@ public class ClassroomServiceImpl implements IClassroomService {
 
 
     @Override
-    public String UpdateClassroomService(UUID classroomId, NewClassroomRequest updateClassroomRequest) {
+    public String UpdateClassroomService(UUID classroomId, ClassroomUpdateRequest updateClassroomRequest) {
         Classroom classroom = classroomRepository
                 .findById(classroomId)
                 .orElseThrow(() -> {
@@ -81,7 +82,7 @@ public class ClassroomServiceImpl implements IClassroomService {
 
         Classroom updatedClassroom = Classroom.builder()
                 .id(classroom.getId())
-                .name(updateClassroomRequest.getRoomName())
+                .name(updateClassroomRequest.getName())
                 .bloc(updateClassroomRequest.getBloc())
                 .capacity(updateClassroomRequest.getCapacity())
                 .updatedAt(LocalDateTime.now())

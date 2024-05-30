@@ -24,10 +24,10 @@ public class PedagogicElement {
     @ManyToOne(fetch = FetchType.EAGER)
     private ElementType elementType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Professor professor;
 
-    @ManyToOne @JoinColumn(name = "coordinator_id")
+    @ManyToOne(fetch = FetchType.EAGER) @JoinColumn(name = "coordinator_id")
     private Professor coordinator;
 
     private LocalDateTime createdAt = LocalDateTime.now();
