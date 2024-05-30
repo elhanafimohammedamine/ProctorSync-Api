@@ -16,6 +16,8 @@ public interface IProfessorService {
     String update(UUID professorId, ProfessorUpdateRequest professorUpdateRequest);
     String delete(UUID professorId);
     Collection<Professor> getProfessorsById(Collection<UUID> professorIds);
+    Optional<Professor> findProfessorById(UUID id);
+
 
 
 }

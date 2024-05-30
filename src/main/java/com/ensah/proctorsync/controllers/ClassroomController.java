@@ -1,6 +1,7 @@
 package com.ensah.proctorsync.controllers;
 
 import com.ensah.proctorsync.DTOs.classroom.ClassRoomResponse;
+import com.ensah.proctorsync.DTOs.classroom.ClassroomUpdateRequest;
 import com.ensah.proctorsync.DTOs.classroom.NewClassroomRequest;
 import com.ensah.proctorsync.entities.Classroom;
 import com.ensah.proctorsync.services.classroom.IClassroomService;
@@ -32,7 +33,7 @@ public class ClassroomController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> UpdateClassroom(@PathVariable UUID id, @Valid  @RequestBody NewClassroomRequest updateClassroom) {
+    public ResponseEntity<String> UpdateClassroom(@PathVariable UUID id, @Valid  @RequestBody ClassroomUpdateRequest updateClassroom) {
         return ResponseEntity.ok(classroomService.UpdateClassroomService(id, updateClassroom));
     }
 

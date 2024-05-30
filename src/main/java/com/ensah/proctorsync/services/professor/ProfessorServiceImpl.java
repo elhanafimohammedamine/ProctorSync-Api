@@ -202,6 +202,11 @@ public class ProfessorServiceImpl implements IProfessorService {
         return professorRepository.findAllById(professorIds);
     }
 
+    @Override
+    public Optional<Professor> findProfessorById(UUID id) {
+        return professorRepository.findById(id);
+    }
+
 
     private boolean professorExists(String email) {
         return professorRepository.existsByEmail(email);

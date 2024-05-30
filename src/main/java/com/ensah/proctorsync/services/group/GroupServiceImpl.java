@@ -35,7 +35,7 @@ public class GroupServiceImpl implements IGroupService {
     @Override
     public Collection<GroupResponse> getAllGroups() {
         return groupMapper.groupsToGroupResponses(
-                groupRepository.findAll()
+                groupRepository.findAllByDeletedAtIsNullOrderByCreatedAtDesc()
         );
     }
 
