@@ -14,4 +14,5 @@ public interface IProfessorRepository extends JpaRepository<Professor, UUID> {
     Optional<Professor> findByEmail(String email);
     boolean existsByEmail(String email);
     Collection<Professor> findAllByGroupIsNull();
+    Collection<Professor> findAllByDeletedAtIsNullOrderByCreatedAt();
 }

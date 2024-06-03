@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -33,11 +34,13 @@ public class User implements UserDetails {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles.stream()
+                .map(role -> (GrantedAuthority) role)
+                .collect(Collectors.toList());
     }
-
     @Override
     public String getPassword() {
         return password;

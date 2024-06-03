@@ -1,9 +1,6 @@
 package com.ensah.proctorsync.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
@@ -18,13 +15,13 @@ import java.util.Objects;
 @SuperBuilder
 public class Professor extends User {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Group group;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Branch branch;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Department department;
 
     @ManyToMany(mappedBy = "professors")

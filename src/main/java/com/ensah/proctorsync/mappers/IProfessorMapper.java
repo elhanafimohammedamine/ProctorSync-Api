@@ -12,6 +12,8 @@ public interface IProfessorMapper {
     Professor professorResponseToProfessor(ProfessorResponse professorResponse);
     Collection<Professor> professorsResponseToProfessors(Collection<ProfessorResponse> professorsResponse);
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "branchId", source = "branch.id")
+    @Mapping(target = "departmentId", source = "department.id")
     ProfessorResponse professorToProfessorResponse(Professor professor);
     Collection<ProfessorResponse> professorsToProfessorsResponse(Collection<Professor> professor);
 
