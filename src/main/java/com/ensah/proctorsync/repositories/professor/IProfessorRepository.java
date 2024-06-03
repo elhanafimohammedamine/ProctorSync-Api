@@ -18,9 +18,7 @@ public interface IProfessorRepository extends JpaRepository<Professor, UUID> {
     Optional<Professor> findByEmail(String email);
     boolean existsByEmail(String email);
     Collection<Professor> findAllByGroupIsNull();
-<<<<<<< Updated upstream
     Collection<Professor> findAllByDeletedAtIsNullOrderByCreatedAt();
-=======
 
     @Query("SELECT p FROM Professor p " +
             "JOIN p.group g " +
@@ -34,6 +32,4 @@ public interface IProfessorRepository extends JpaRepository<Professor, UUID> {
             ")")
     Page<Professor> findAvailableProfessorsInGroupWithLimit(@Param("groupId") UUID groupId, @Param("newExamStartDateTime") LocalDateTime newExamStartDateTime, @Param("newExamEndDateTime") LocalDateTime newExamEndDateTime, Pageable pageable);
 
-
->>>>>>> Stashed changes
 }
