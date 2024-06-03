@@ -17,7 +17,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private final PasswordEncoder passwordEncoder;
     private final IUserService userService;
 
     @Override

@@ -15,6 +15,8 @@ public class ProfessorResponse {
     private String email;
     private String phone;
     private LocalDateTime createdAt;
+    private UUID branchId;
+    private UUID departmentId;
 
 
 }

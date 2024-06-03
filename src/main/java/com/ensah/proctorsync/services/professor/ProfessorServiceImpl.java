@@ -97,7 +97,7 @@ public class ProfessorServiceImpl implements IProfessorService {
 
         return professorMapper
                 .professorsToProfessorsResponse(
-                        professorRepository.findAll()
+                        professorRepository.findAllByDeletedAtIsNullOrderByCreatedAt()
                 );
     }
 
@@ -122,7 +122,7 @@ public class ProfessorServiceImpl implements IProfessorService {
     public String update(UUID professorId, ProfessorUpdateRequest professorUpdateRequest) {
 
         // check ids match
-        if (professorId != professorUpdateRequest.getId()) {
+        if (!professorId.equals(professorUpdateRequest.getId())) {
             ApiRequestException apiRequestException = new ApiRequestException("Id of professor does not match the id in the request body");
             LOGGER.error("Error while updating professor, exception thrown because of professor id {} does not match the one in the request body {} ", professorId, professorUpdateRequest.getId(), apiRequestException);
             throw  apiRequestException;

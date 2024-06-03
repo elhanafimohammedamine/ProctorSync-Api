@@ -32,7 +32,7 @@ public class AdministratorServiceImpl implements IAdministratorService {
     public Collection<AdministratorResponse> getAllAdministrators() {
         return administratorMapper
                 .administratorsToAdministratorResponses(
-                        administratorRepository.findAll()
+                        administratorRepository.findAllByDeletedAtIsNullOrderByCreatedAt()
                 );
     }
 
@@ -88,7 +88,7 @@ public class AdministratorServiceImpl implements IAdministratorService {
     public String update(UUID administratorId, AdministratorUpdateRequest administratorUpdateRequest) {
 
         // check ids match
-        if (administratorId != administratorUpdateRequest.getId()) {
+        if (!administratorId.equals(administratorUpdateRequest.getId())) {
             ApiRequestException apiRequestException = new ApiRequestException("Id of professor does not match the id in the request body");
             LOGGER.error("Error while updating administrator, exception thrown because of administrator id {} does not match the one in the request body {} ", administratorId, administratorUpdateRequest.getId(), apiRequestException);
             throw  apiRequestException;
