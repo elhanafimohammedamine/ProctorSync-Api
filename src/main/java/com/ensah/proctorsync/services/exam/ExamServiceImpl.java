@@ -65,8 +65,8 @@ public class ExamServiceImpl implements IExamService {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-        LocalDate fStartDate = LocalDate.from(LocalDateTime.parse(newExamRequest.getExamDate(), dateFormatter));
-        LocalTime fStartTime = LocalTime.from(LocalDateTime.parse(newExamRequest.getExamDate(), dateFormatter));
+        LocalDate fStartDate = LocalDate.parse(newExamRequest.getExamDate(), dateFormatter);
+        LocalTime fStartTime = LocalTime.parse(newExamRequest.getStartTime(), timeFormatter);
 
         String semesterName = (LocalDate.now().getMonth().getValue() < 8 && LocalDate.now().getMonth().getValue() > 1) ? "Semestre 2" : "Semestre 1";
 
@@ -109,6 +109,7 @@ public class ExamServiceImpl implements IExamService {
                 .pedagogicElement(pedagogicElement)
                 .session(session)
                 .examType(examType)
+                .monitoring(Collections.emptyList())
                 .startDateTime(getStartDateTime(fStartDate, fStartTime))
                 .endDateTime(getEndDateTime(fStartDate, fStartTime, newExamRequest.getActualDuration(), newExamRequest.getPlannedDuration()))
                 .academicYear(newExamRequest.getAcademicYear())

@@ -15,10 +15,12 @@ import com.ensah.proctorsync.services.professor.ProfessorServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -136,7 +138,8 @@ public class AdministratorServiceImpl implements IAdministratorService {
 
     @Override
     public Optional<Administrator> findAvailableAdministrator(LocalDateTime newExamStartDateTime, LocalDateTime newExamEndDateTime) {
-        return administratorRepository.findAvailableAdministrator(newExamStartDateTime, newExamEndDateTime);
+        List<Administrator> administrators = administratorRepository.findAvailableAdministrator(newExamStartDateTime, newExamEndDateTime, PageRequest.of(0, 1)).getContent();
+        return administrators.isEmpty() ? Optional.empty() : Optional.of(administrators.get(0));
     }
 
     private boolean administratorExists(String email) {

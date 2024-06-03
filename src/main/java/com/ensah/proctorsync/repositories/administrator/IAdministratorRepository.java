@@ -4,6 +4,7 @@ import com.ensah.proctorsync.DTOs.administrator.AdministratorResponse;
 import com.ensah.proctorsync.DTOs.professor.ProfessorResponse;
 import com.ensah.proctorsync.entities.Administrator;
 import com.ensah.proctorsync.entities.Professor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -26,5 +27,5 @@ public interface IAdministratorRepository extends JpaRepository<Administrator, U
             "    AND e.startDateTime < :newExamEndDateTime " +
             "    AND e.endDateTime > :newExamStartDateTime" +
             ")")
-    Optional<Administrator> findAvailableAdministrator(@Param("newExamStartDateTime") LocalDateTime newExamStartDateTime, @Param("newExamEndDateTime") LocalDateTime newExamEndDateTime);
+    Page<Administrator> findAvailableAdministrator(@Param("newExamStartDateTime") LocalDateTime newExamStartDateTime, @Param("newExamEndDateTime") LocalDateTime newExamEndDateTime, Pageable pageable);
 }
