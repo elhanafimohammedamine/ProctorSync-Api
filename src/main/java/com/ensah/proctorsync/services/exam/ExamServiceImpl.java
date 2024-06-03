@@ -4,17 +4,24 @@ import com.ensah.proctorsync.DTOs.exam.NewExamRequest;
 import com.ensah.proctorsync.entities.*;
 import com.ensah.proctorsync.exception.NotFoundException;
 import com.ensah.proctorsync.helpers.OperationCheck;
+import com.ensah.proctorsync.repositories.administrator.IAdministratorRepository;
 import com.ensah.proctorsync.repositories.exam.IExamRepository;
+import com.ensah.proctorsync.repositories.professor.IProfessorRepository;
+import com.ensah.proctorsync.services.administrator.IAdministratorService;
 import com.ensah.proctorsync.services.classroom.IClassroomService;
 import com.ensah.proctorsync.services.examtype.IExamTypeService;
 import com.ensah.proctorsync.services.group.GroupServiceImpl;
 import com.ensah.proctorsync.services.monitoring.IMonitoringService;
 import com.ensah.proctorsync.services.pedagogicelement.IPedagogicElementService;
+import com.ensah.proctorsync.services.professor.IProfessorService;
 import com.ensah.proctorsync.services.semester.ISemesterService;
 import com.ensah.proctorsync.services.session.ISessionService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +32,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -34,6 +42,8 @@ public class ExamServiceImpl implements IExamService {
     private final ISessionService sessionService;
     private final ISemesterService semesterService;
     private final IPedagogicElementService pedagogicElementService;
+    private final IProfessorService professorService;
+    private final IAdministratorService administratorService;
     private final IExamTypeService examTypeService;
     private final IClassroomService classroomService;
     private final IMonitoringService monitoringService;
@@ -110,21 +120,36 @@ public class ExamServiceImpl implements IExamService {
         if (!newExamRequest.getRoomIds().isEmpty()) {
             newExamRequest
                     .getRoomIds()
-                    .forEach(crId -> {
+                    .forEach(room -> {
                         Classroom classroom = classroomService
-                                .findClassroomById(crId)
+                                .findClassroomById(room.getRoomId())
                                 .orElseThrow(
                                         () -> {
-                                            NotFoundException notFoundException = new NotFoundException("classroom with id " + crId + " does not exist");
+                                            NotFoundException notFoundException = new NotFoundException("classroom with id " + room.getRoomId() + " does not exist");
                                             LOGGER.error("Error while creating exam, exception thrown because of classroom does not exist", notFoundException);
                                             return notFoundException;
                                         }
                                 );
+                        Collection<Professor> availableProfessors =  professorService.findAvailableProfessorsInGroup(room.getGroupId(), savedExam.getStartDateTime(), savedExam.getEndDateTime(), room.getMonitorsCount()).getContent();
+                        Administrator availableAdministrator = administratorService.findAvailableAdministrator(savedExam.getStartDateTime(), savedExam.getEndDateTime())
+                                .orElseThrow(() -> {
+                                    NotFoundException notFoundException = new NotFoundException("No available administrator for this duration");
+                                    LOGGER.error("Error while creating exam, exception thrown because of administrator is not available", notFoundException);
+                                    return notFoundException;
+                        });
+
+                        if(availableProfessors.isEmpty()) {
+                            NotFoundException notFoundException = new NotFoundException("No available professors for the group. The requested number of professors is not available.");
+                            LOGGER.error("Error while creating exam, exception thrown because of professors is not available", notFoundException);
+                            throw  notFoundException;
+                        };
 
                         Monitoring newMonitoring = Monitoring
                                 .builder()
                                 .coordinator(pedagogicElement.getCoordinator())
                                 .classroom(classroom)
+                                .professors(availableProfessors)
+                                .administrator(availableAdministrator)
                                 .exam(savedExam)
                                 .build();
 

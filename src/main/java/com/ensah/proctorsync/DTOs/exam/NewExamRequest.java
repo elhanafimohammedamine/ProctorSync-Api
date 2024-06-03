@@ -19,5 +19,5 @@ public class NewExamRequest {
     private UUID sessionId;
     private String examDate;
     private String startTime;
-    private Collection<UUID> roomIds;
+    private Collection<RoomInfos> roomIds;
 }

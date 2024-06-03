@@ -18,6 +18,9 @@ import com.ensah.proctorsync.services.department.IDepartmentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -205,6 +208,12 @@ public class ProfessorServiceImpl implements IProfessorService {
     @Override
     public Optional<Professor> findProfessorById(UUID id) {
         return professorRepository.findById(id);
+    }
+
+    @Override
+    public Page<Professor> findAvailableProfessorsInGroup(UUID groupId, LocalDateTime newExamStartDateTime, LocalDateTime newExamEndDateTime, int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        return professorRepository.findAvailableProfessorsInGroupWithLimit(groupId, newExamStartDateTime, newExamEndDateTime, pageable);
     }
 
     @Override

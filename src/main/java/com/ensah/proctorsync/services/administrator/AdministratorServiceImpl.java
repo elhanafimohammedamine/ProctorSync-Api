@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -131,6 +132,11 @@ public class AdministratorServiceImpl implements IAdministratorService {
         Administrator deletedAdministrator = administratorRepository.save(administrator);
 
         return OperationCheck.check(deletedAdministrator, "Administrator has been deleted successfully", "Failed to delete administrator");
+    }
+
+    @Override
+    public Optional<Administrator> findAvailableAdministrator(LocalDateTime newExamStartDateTime, LocalDateTime newExamEndDateTime) {
+        return administratorRepository.findAvailableAdministrator(newExamStartDateTime, newExamEndDateTime);
     }
 
     private boolean administratorExists(String email) {
